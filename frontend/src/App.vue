@@ -49,8 +49,8 @@
         <button @click="addEducation">Adicionar Educação</button>
       </article>
     </aside>
-
-    <section>
+    <button @click="downloadPDF">Baixar PDF</button>
+    <section ref="contentToPrint">
       <div class="cv-aside"></div>
       <div class="cv-content">
         <h1>{{ fullname }}</h1>
@@ -87,6 +87,7 @@
 
 <script>
 import { Mail, MapPin, Phone } from 'lucide-vue-next';
+import html2pdf from 'html2pdf.js';
 
 export default {
   data() {
@@ -134,6 +135,17 @@ export default {
         description: "",
       });
     },
+    downloadPDF() {
+      const element = this.$refs.contentToPrint;
+      const options = {
+        margin: 1,
+        filename: 'curriculo.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+      html2pdf().from(element).set(options).save();
+    }
   },
   components: {
     Mail, MapPin, Phone
