@@ -49,11 +49,9 @@
         <button @click="addEducation">Adicionar Educação</button>
       </article>
     </aside>
-    <button @click="downloadPDF">Baixar PDF</button>
+    <button @click="downloadPDF" class="download-btn">Baixar PDF</button>
     <section ref="contentToPrint">
-      <div class="cv-aside"></div>
-      <div class="cv-content">
-        <h1>{{ fullname }}</h1>
+      <h1>{{ fullname }}</h1>
         <div class="data-container" v-if="email">
           <Mail />
           <p>{{ email }}</p>
@@ -80,7 +78,6 @@
           <p>{{ edu.sdate }} - {{ edu.edate }}</p>
           <p>{{ edu.description }}</p>
         </div>
-      </div>
     </section>
   </main>
 </template>
@@ -158,22 +155,22 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
 }
 
 main {
   display: flex;
-  max-width: 1200px;
-  margin: 0 auto;
+  flex-direction: column;
   padding: 20px;
-  font-family: 'Arial', sans-serif;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f0f0f0;
 }
 
 aside {
-  width: 35%;
-  margin-right: 5%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 20px;
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
@@ -181,11 +178,14 @@ aside {
 }
 
 article {
-  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-  font-size: 1.8em;
+  font-size: 1.5em;
   color: #333;
   border-bottom: 2px solid #333;
   padding-bottom: 10px;
@@ -230,26 +230,16 @@ button:hover {
 }
 
 section {
-  width: 60%;
-  display: flex;
+  width: 100%;
   background-color: #fff;
+  padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  height: 1200px;
-}
-
-.cv-aside {
-  width: 100px;
-  height: 100%;
-  background-color: #007bff;
-  border-radius: 8px 0 0 8px;
-}
-
-.cv-content {
-  padding: 40px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
 }
 
 section h1 {
-  font-size: 2.5em;
+  font-size: 2em;
   color: #333;
   margin-bottom: 20px;
 }
@@ -262,23 +252,54 @@ section .data-container {
 }
 
 section p {
-  font-size: 1.2em;
+  font-size: 1em;
   color: #666;
 }
 
 section h2 {
-  font-size: 2em;
+  font-size: 1.5em;
   color: #333;
   margin-top: 30px;
 }
 
 section h3 {
-  font-size: 1.5em;
+  font-size: 1.2em;
   color: #444;
   margin-bottom: 5px;
 }
 
-.exp-content, .edu-content {
+.exp-content,
+.edu-content {
   margin-bottom: 20px;
 }
+
+.download-btn {
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: 1px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.download-btn:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 1200px) {
+  aside {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  aside {
+    grid-template-columns: 1fr;
+  }
+}
+
 </style>
